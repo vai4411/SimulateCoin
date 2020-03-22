@@ -13,14 +13,35 @@ do
         fi
 done
 
-echo $head
-echo $tail
-
-if [ $head -gt $tail ]
+if [ $head -eq $tail ]
 then
-	win=$(($head - $tail))
-	echo "Head wins by $win"
-else
-	win=$(($tail - $head))
-	echo "Tail wins by $win"
+	while true
+	do
+		rs=$((RANDOM % 2))
+		if [ $rs -eq 1 ]
+		then
+			head=$(($head + 1))
+		else
+			tail=$(($tail + 1))
+		fi
+
+		if [ $(($head - $tail)) -eq 2 ]
+		then
+			echo "Head win by 2 and count is $head"
+		else
+			if [ $(($tail - $head)) -eq 2 ]
+			then
+				echo "Tail win by 2 and count is $tail"
+			fi
+		fi
+	done
+elif [ $head -gt $tail ]
+	then
+       		win=$(($head - $tail))
+		echo "Tail wins by $win"
+	else
+       		win=$(($tail - $head))
+       		echo "Tail wins by $win"
 fi
+
+
